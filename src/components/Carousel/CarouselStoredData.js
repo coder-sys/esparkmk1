@@ -1,0 +1,79 @@
+import React, { useState } from 'react';
+import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
+import { IconContext } from 'react-icons';
+import {  data,sliderSettings } from '../../data/CarouselData';
+import { Row, Heading, Section, TextWrapper } from '../../globalStyles';
+import {
+	ButtonContainer,
+	ReviewSlider,
+	ImageWrapper,
+	CardButton,
+} from './CarouselStyles';
+
+	 
+	
+
+const CarouselStoredData = (props) => {
+	const [sliderRef, setSliderRef] = useState(null);
+	const [show,setShow] = useState(true)
+    return (
+		<Section margin="auto" maxWidth="1280px" padding="50px 70px" inverse>
+			<Row justify="space-between" margin="1rem" wrap="wrap">
+				<Heading width="auto" inverse>
+					Stored Data
+				</Heading>
+				<a href={`http://localhost:3000/homepage/${props.name}/${props.ut}`}><div><b><i>BACK</i></b></div></a>
+				<ButtonContainer>
+					<IconContext.Provider value={{ size: '3rem', color: '#1d609c' }}>
+						<div style={{opacity:0}}>
+					<FaArrowCircleLeft />
+						<FaArrowCircleRight />
+						</div>
+					<TextWrapper size="1.1rem" margin="0.4rem 0 0" weight="bold">
+					Use Arrows to navigate
+					</TextWrapper>
+
+					</IconContext.Provider>
+				</ButtonContainer>
+			</Row>
+				
+			<ReviewSlider {...sliderSettings} ref={setSliderRef}>
+				
+				{
+                    props.stored_data_array.map((data,index)=>{
+                        let linkarray__ = []
+                        data['link'].split('').map((data,index)=>{
+                            if(data=='`'){
+                                linkarray__[index]='/'
+                            }
+                            else{
+                                linkarray__[index]=data
+                            }
+                        })
+                        console.log(linkarray__.join(""))
+		return(
+		<ImageWrapper key={index}>
+			<TextWrapper width='225' size="1.1rem" margin="0.4rem 0 0" weight="bold">
+				<a href={linkarray__.join('')}> <div style={{fontSize:'15px',color:'black'}}><p>{data['name']}</p></div> </a>
+			</TextWrapper>
+			
+			<TextWrapper>
+			<CardButton onClick={async()=>{ 
+                        let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${props.name}`)
+                        emailandlastname = await emailandlastname.json()
+                        let api= await fetch(`http://localhost:8000/delete_saved_data/${props.name+emailandlastname['lastname']+emailandlastname['email']}/${props.foldername}/${data['name']}`)
+                        api = await api.json()
+                        props.setue(props.update_effect+1)
+            }}
+                         >Delete</CardButton><br></br><br></br>
+
+			</TextWrapper>
+		</ImageWrapper>
+		)})}
+			</ReviewSlider>
+		</Section>
+	);
+	
+};
+
+export default CarouselStoredData;
