@@ -27,16 +27,17 @@ export const data = [
 	},
 ];
 
-export const sliderSettings = {
-	arrows: false,
-	slidesToShow: 3,
+export const sliderSettings =(sts) =>{ return{
+
+	arrows: true,
+	slidesToShow:sts,
 	focusOnselect: false,
 	accessability: false,
 	responsive: [
 		{
 			breakpoint: 1280,
 			settings: {
-				slidesToShow: 2,
+				slidesToShow: 0,
 			},
 		},
 
@@ -47,4 +48,4 @@ export const sliderSettings = {
 			},
 		},
 	],
-};
+}};

@@ -7,24 +7,25 @@ import {
 	ButtonContainer,
 	ReviewSlider,
 	ImageWrapper,
-	CarouselImage,
 	CardButton,
 } from './CarouselStyles';
 
-	 
+
 	
 
-const CarouselStudentData = (props) => {
+const CarouselGoogleConceptual = (props) => {
 	const [sliderRef, setSliderRef] = useState(null);
 	const [show,setShow] = useState(true)
-
+	//console.log(props.csTitles)
+	//console.log(props.csLinks)
+	//console.log(props.csDescriptions)
+	//console.log(props.csStoredData)
 	return (
 		<Section margin="auto" maxWidth="1280px" padding="50px 70px" inverse>
 			
 			<Row justify="space-between" margin="1rem" wrap="wrap">
-				
 				<Heading width="auto" inverse>
-					{props.jsonified_data[0]['email'][0]}
+					{props.subtopic}
 				</Heading>
 				<ButtonContainer>
 					<IconContext.Provider value={{ size: '3rem', color: '#1d609c' }}>
@@ -33,33 +34,35 @@ const CarouselStudentData = (props) => {
 						<FaArrowCircleRight />
 						</div>
 					<TextWrapper size="1.1rem" margin="0.4rem 0 0" weight="bold">
-						Use Arrows to navigate
+					Use Arrows to navigate
 					</TextWrapper>
 
 					</IconContext.Provider>
 				</ButtonContainer>
 			</Row>
 				
-			<ReviewSlider {...sliderSettings(props.jsonified_data.length)} >
+			<ReviewSlider {...sliderSettings(props.csTitles.length/2)} ref={setSliderRef}>
 				
 				{
-				props.jsonified_data.map((data, index) => {
-             
-						
+				props.csLinks.map((data, index) => {
+					console.log(props.csStoredData)
 		return(
 		<ImageWrapper key={index}>
-
 			<TextWrapper size="1.1rem" margin="0.4rem 0 0" weight="bold">
-				<ul style={{fontSize:'15px'}} size="1.1rem" margin="0.4rem 0 0" weight="bold">
-				<div>{"Email:"+data['email']}</div><br></br>
-				<div>{"firstname: "+data['firstname']}</div><br></br>
-				<div>{"lastname: "+data['lastname']}</div><br></br>
-				<div>{"Number of Folders: "+data['no_of_folders']}</div><br></br>
-				<CardButton onClick={()=>window.open(`http://localhost:3000/homepage/${data['firstname']}/student`)}>View </CardButton>
-				</ul>
+				<a href={data} target={'_blank'}>{props.csTitles[index]}</a>
 			</TextWrapper>
 			
-			
+			<TextWrapper style={{'fontSize':'9.75px'}} margin="0.7rem" color="#4f4f4f">
+			{props.csDescriptions[index]}
+			</TextWrapper>
+			<TextWrapper>
+			<CardButton onClick={
+				    ()=>props.save_data(props.setue,data,props.update_effect,props.linkjoin_,props.csTitles,index,props.djoin_,props.csStoredData,props.name,props.lastname,props.email,props.foldername,props.csDescriptions)
+
+           
+           } disabled={props.csStoredData[index]} >Save</CardButton><br></br><br></br>
+
+			</TextWrapper>
 		</ImageWrapper>
 		)})}
 			</ReviewSlider>
@@ -67,5 +70,5 @@ const CarouselStudentData = (props) => {
 	);
 };
 
-export default CarouselStudentData;
-//            {props.student_alph_lastname[index]}
+export default CarouselGoogleConceptual;
+//			    {props.csDescriptions[index]}

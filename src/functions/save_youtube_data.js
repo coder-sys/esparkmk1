@@ -1,8 +1,14 @@
-const save_youtube_data = async(setue,update_effect,youtubeAPILinks,youtubeAPITitles,index,ytlinkjoin_,ytdjoin_,data,stored_data_yt,name,foldername)=>{
+const save_youtube_data = async(setue,update_effect,youtubeAPILinks,youtubeAPITitles,index,ytlinkjoin_,ytdjoin_,data,stored_data_yt,name,foldername,thumbnail,thumbnailjoin_)=>{
     //document.getElementById('savesourcebutton').disable = true
     
                                     setue(update_effect+1)
-    
+                                    thumbnail[index].split('').map((data_)=>{
+                                        if(data_ == '/'){
+                                            console.log('alert')
+                                            data_ = '`'
+                                        }
+                                        thumbnailjoin_.push(data_)
+                                    })
                                     youtubeAPILinks[index].split('').map((data_)=>{
     
                                         if(data_ == '/'){
@@ -27,9 +33,20 @@ const save_youtube_data = async(setue,update_effect,youtubeAPILinks,youtubeAPITi
                                     try{
       let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
       emailandlastname = await emailandlastname.json()
-                console.log(ytlinkjoin_.join("").split('=')[1])
-                                    let api = await fetch(`http://localhost:8000/add_youtube_content/${name+emailandlastname['lastname']+emailandlastname['email']}/${foldername}/${youtubeAPITitles[index]}/${ytlinkjoin_.join("").split('=')[1]}`)
+                console.log(thumbnail[index])
+                let yttitlejoin = []
+                youtubeAPITitles[index].split('').map((data)=>{
+                    if(data == '?'){
+                        data = ''
+                    }
+                    if (data != ''){
+                    yttitlejoin.push(data)
+                    }
+                    
+                })
+                
+                                    let api = await fetch(`http://localhost:8000/add_youtube_content/${name+emailandlastname['lastname']+emailandlastname['email']}/${foldername}/${yttitlejoin.join('')}/${ytlinkjoin_.join("").split('=')[1]}/${thumbnailjoin_.join('')}`)
                                     api = await api.json()
-                                    console.log(api)}catch(err){alert('This youtube video is forbidden from being stored')}
+                                    console.log(api)}catch(err){alert('could not save source')}
                                    }
 export default save_youtube_data;

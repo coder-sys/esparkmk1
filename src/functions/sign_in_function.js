@@ -1,6 +1,7 @@
 const sign_in_function = async(fname,lname,password,email)=>{
     let __api__ = await fetch(`http://localhost:8000/verify_sign_in_information/${email}/${fname}/${lname}`)
     __api__ = await __api__.json()
+    
     let user_type = ''
     let disected_address = email.split('@')[1]
     if(__api__['data'] == 'good to go!'){

@@ -50,11 +50,10 @@ const FormFolderContentGoogle = (props) => {
 	];
 	props.setConsent(false)
 	return (
-		<FormSection>
+		<FormSection id='googlesearch'>
 			<Container>
 				<FormRow>
 					<FormColumn small>
-						<div style={{'fontSize':'9px'}}>Note:A google search will take up to a little less than a minute to display results</div>
 						<FormWrapper onSubmit={handleSubmit}>
 							{formData.map((el, index) => (
 								<FormInputRow key={index}>
@@ -104,7 +103,7 @@ const FormFolderContentGoogle = (props) => {
 					api = await api.json()
 					props.setStoredData(api.data)}catch(err){console.log(err)}
 			})
-			})}catch(err){alert('ERROR:429,please try again later')}
+			})}catch(err){alert('Error: Too many requests. Google has temporarily blocked you. Try again later.')}
                                     
                                             }} type="submit"> Google Search</FormButton>
                            

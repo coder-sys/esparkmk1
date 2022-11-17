@@ -7,6 +7,8 @@ import { Content } from '../Content/Content';
 import FormStudentQuery from '../Form/FormStudentQuery';
 import CarouselStudentData from '../Carousel/CarouselStudentData';
 import range_generator from '../../functions/range_generator';
+import { AdminPageContent } from '../Content/AdminPageContent';
+ 
 const HeroHomePage = (props) => {
     const [sw,setSw] = useState(100)
 const [hw,setHw] = useState(50)
@@ -21,7 +23,9 @@ const [gdt,setGdt] = useState([])
 const [jsonified_data,setJD] = useState({'google':0,'youtube':0})
 const [user_type,setUT]=useState(props.ut)
 const [student_data,setStudentData] = useState([])
-
+const [teacher_data,setTeacherData] = useState([])
+const [student_graph_data,setStudentGraphData] = useState([])
+const [teacher_graph_data,setTeacherGraphData] = useState([])
   const Delete = async(foldername)=>{
     let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
     emailandlastname = await emailandlastname.json()
@@ -34,6 +38,8 @@ const [student_data,setStudentData] = useState([])
   setFolderData(api1.data)
   console.log(true,name+emailandlastname['lastname']+emailandlastname['email'])
   setUpdated()
+  let api2 = await fetch(`http://localhost:8000/delete_no_of_folders/${name}`)
+  api2 = await api2.json()
   }
   
 const UE = async()=>{
@@ -62,13 +68,25 @@ setFolderData(api1.data)
 
 }catch(err){console.log('you have no folders')}
 }
-const fetchData_teacher =async () =>{
+const fetchData_teacher = async () =>{
   let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
 emailandlastname = await emailandlastname.json()
-let student_data_1 = await fetch(`http://localhost:8000/view_student_data_alph_order`)
+let student_data_1 = await fetch(`http://localhost:8000/view_student_data_alph_order/student`)
 student_data_1 = await student_data_1.json()
 setStudentData(student_data_1['data'])
+setStudentGraphData(student_data_1['graph_data'])
 console.log(student_data_1['data'])
+
+}
+const fetchData_admin = async () =>{
+  let student_data_1 = await fetch(`http://localhost:8000/view_student_data_alph_order/student`)
+student_data_1 = await student_data_1.json()
+setStudentGraphData(student_data_1['graph_data'])
+let student_data_2 = await fetch(`http://localhost:8000/view_student_data_alph_order/teacher`)
+student_data_2 = await student_data_2.json()
+console.log(student_data_2['data'])
+setTeacherData(student_data_2['data'])
+setTeacherGraphData(student_data_2['graph_data'])
 
 }
 if(user_type == 'student'){
@@ -77,6 +95,9 @@ fetchData_student()
 if(user_type == 'teacher'){
   fetchData_teacher()
 }
+if(user_type == 'admin'||user_type=='adminteacherlist'){
+  fetchData_admin()
+}
 }
 useEffect(()=>{UE()},[update])
 if(user_type=='student'){
@@ -84,7 +105,7 @@ if(user_type=='student'){
 		<>
 			<HeroVideo src="./assets/hero.mp4" loop autoPlay muted />
 
-      <FormHomepage name={name} folderfield={folderfield} setFolderField={setFolderField} setUpdated={setUpdated} />
+      <FormHomepage name={name} folderfield={folderfield} setFolderField={setFolderField} setUpdated={setUpdated} folderdata={folderdata} />
     {folderdata.map((data,index)=>{
       const heroOne = {
         reverse: true,
@@ -104,7 +125,7 @@ if(user_type=='student'){
         ydt:jsonified_data['youtube'][index]
       };
       return( 
-         <Content {...heroOne} />
+         <Content key={index} {...heroOne} />
 )})
     }
 		</>
@@ -114,15 +135,69 @@ if(user_type=='student'){
       <>
 
       <FormStudentQuery />
+      <div id={'user_carousels'}>
       {
         student_data.map((data,index)=>{
-          console.log(data.length)
+          console.log(data)
           return(
-            <CarouselStudentData jsonified_data={data}/>
+            <CarouselStudentData key={index}  jsonified_data={data}/>
           )
         })
       }
+      </div>
       </>
+    )
+  }
+
+  if(user_type=='admin'){
+    const heroThree = {
+      reverse:true,
+      inverse:true,
+      topLine:{
+        text:'The graph shows teacher enrollment by last initial'
+      },
+      headline:'Teachers List',
+      buttonLabel1:'View',
+      graph_data:teacher_graph_data,
+      imgStart: 'start',
+      img: './assets/svg/Deal.svg',
+      start: 'true',
+      vf:()=>window.open('http://localhost:3000/homepage/'+name+'/adminteacherlist')
+    }
+    const heroTwo = {
+      reverse: true,
+      inverse: true,
+      topLine: {
+        text:'The graph shows student enrollment by last initial'
+      },
+      headline: 'Students List',
+      buttonLabel1: 'View',
+      graph_data:student_graph_data,
+      imgStart: 'start',
+      img: './assets/svg/Deal.svg',
+      start: 'true',
+      vf:()=>window.open('http://localhost:3000/homepage/'+name+'/teacher')
+    }
+    console.log(teacher_data)
+   return( <>
+
+   <AdminPageContent {...heroTwo} />
+   <AdminPageContent {...heroThree} />
+
+    </>)
+  }
+  if(user_type=='adminteacherlist'){
+    return(
+      <div >
+      {
+        teacher_data.map((data,index)=>{
+          console.log(data)
+          return(
+            <CarouselStudentData key={index}  jsonified_data={data}/>
+          )
+        })
+      }
+      </div>
     )
   }
 };

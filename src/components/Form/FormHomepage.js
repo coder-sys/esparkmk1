@@ -23,6 +23,17 @@ const FormHomepage = (props) => {
 	const [error, setError] = useState(null);
 	const [success, setSuccess] = useState(null);
    const [folderfield,setFolderField] = useState('')
+   function returnMessage(){
+	if(props.folderdata.length == 0){
+		return 'You have zero folders as of right now'
+	}else if (props.folderdata.length == 1){
+		return `You have ${props.folderdata.length} folder,scroll down to view`
+	}
+	else{
+		return `You have ${props.folderdata.length} folders,scroll down to view`
+
+	}
+   }
 //    const [update,setUpdated] = useReducer(x=>x+1,0)
 //    const [folderdata,setFolderData] = useState([])	
 
@@ -60,7 +71,7 @@ const FormHomepage = (props) => {
 			<Container>
 				<FormRow>
 					<FormColumn small>
-					<FormLabel><b><i>Note: If your folders do not load,kindly refresh the page</i></b></FormLabel>
+					<FormLabel><b><i>{returnMessage()}</i></b></FormLabel>
 
 						<FormWrapper onSubmit={handleSubmit}>
 							{formData.map((el, index) => (
@@ -87,7 +98,7 @@ const FormHomepage = (props) => {
                                                 props.setUpdated();
                                                 let ufa = await fetch(`http://localhost:8000/update_no_of_folders/${props.name}`)
                                                 ufa = await ufa.json()
-                                            }} type="submit"> Create Folder</FormButton>
+                                            }} type="submit">Create Folder to store your internet research</FormButton>
                            
 						</FormWrapper>
 						{error && (

@@ -42,7 +42,6 @@ export const ButtonContainer = styled(Row)`
 
 export const ReviewSlider = styled(Slider)`
 	width: 100%;
-	scroll-snap-type: x mandatory;
 
 	.slick-track {
 		display: flex;

@@ -22,7 +22,7 @@ const CarouselYouTube = (props) => {
 		<Section margin="auto" maxWidth="1280px" padding="50px 70px" inverse>
 			<Row justify="space-between" margin="1rem" wrap="wrap">
 				<Heading width="auto" inverse>
-					YouTube search
+				{props.youtubesearchtitle}
 				</Heading>
 				<ButtonContainer>
 					<IconContext.Provider value={{ size: '3rem', color: '#1d609c' }}>
@@ -38,11 +38,10 @@ const CarouselYouTube = (props) => {
 				</ButtonContainer>
 			</Row>
 				
-			<ReviewSlider {...sliderSettings} ref={setSliderRef}>
+			<ReviewSlider {...sliderSettings(props.youtubeAPILinks.length/5.5)} ref={setSliderRef}>
 				
 				{
 				props.youtubeAPILinks.map((data, index) => {
-                    console.log(props.thumbnail)
                         let ytlinkjoin_ = []
                         let ytdjoin_ = []
 						
@@ -56,7 +55,7 @@ const CarouselYouTube = (props) => {
 			
 			<TextWrapper>
 			<CardButton onClick={
-				    ()=>props.save_data(props.setue,props.update_effect,props.youtubeAPILinks,props.youtubeAPITitles,index,ytlinkjoin_,ytdjoin_,data,props.stored_data_yt,props.name,props.foldername)
+				    ()=>props.save_data(props.setue,props.update_effect,props.youtubeAPILinks,props.youtubeAPITitles,index,ytlinkjoin_,ytdjoin_,data,props.stored_data_yt,props.name,props.foldername,props.thumbnail,[])
            
            } disabled={props.stored_data_yt[index]} >Save</CardButton><br></br><br></br>
 

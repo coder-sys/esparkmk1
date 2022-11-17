@@ -12,6 +12,7 @@ import {
 	FormTitle,
 } from './FormStyles';
 import NameList from '../NameList/NameList';
+import BarChartStudentEnrollment from '../BarChart/BarChartStudentEnrollment';
 
 import { Container } from '../../globalStyles';
 import validateForm from './validateForm';
@@ -25,6 +26,14 @@ const FormStudentQuery = (props) => {
 	const [results,setResults] = useState([])
 	const [updated,setUpdated] = useState(0)
 	const [opacity,setOpacity] = useState(0)
+	const [student_graph_data,setStudentGraphData] = useState([])
+	function loadNames(){
+		if(query!=''){
+			return(
+	<NameList opacity={opacity} query={query} nameoptions={results}   param={selectedParam} />
+			)
+		}
+	}
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const resultError = validateForm({ setQuery });
@@ -44,7 +53,7 @@ const FormStudentQuery = (props) => {
 	};
 
 	const formData = [
-		{ label: 'Search Student', value: query, onChange: (e) => {setQuery(e.target.value);setOpacity(0.759)}, type: 'text' },
+		{ label: 'Search a student to see their research', value: query, onChange: (e) => {setQuery(e.target.value);setOpacity(1)}, type: 'text' },
 	
 		
 	];
@@ -55,43 +64,47 @@ const FormStudentQuery = (props) => {
 									   let api = await fetch(`http://localhost:8000/load_data_by_param/${select[select.selectedIndex].text}`)
 									   api = await api.json()
 									   console.log(api.data)
-									   setResults(api.data)
+									   setResults(api.data)								   
+let student_data_1 = await fetch(`http://localhost:8000/view_student_data_alph_order/student`)
+student_data_1 = await student_data_1.json()
+setStudentGraphData(student_data_1['graph_data'])
+
+									   
    },[updated])
 	return (
 		<FormSection>
 			<Container>
 				<FormRow>
 					<FormColumn small>
-						<FormTitle>Student Research Query</FormTitle>
+						Scroll down to see students list
+						<FormTitle>Student Query</FormTitle>
 						<FormWrapper onSubmit={handleSubmit}>
 							{formData.map((el, index) => (
 								<FormInputRow key={index}>
 									<FormLabel>{el.label}</FormLabel>
 									<FormInput
 										type={el.type}
-										placeholder={`Search for ${el.label.toLocaleLowerCase()}`}
+										placeholder={` ${el.label.toLocaleLowerCase()}`}
 										value={el.value}
 										onChange={el.onChange}
 									/>
 								</FormInputRow>
 							))}
 <div style={{transform:'translate(40%,0px)'}}>
-<select name="param" id="param">
-  <option value="firstname">firstname</option>
-  <option value="email">email</option>
-</select></div>
-							<FormButton onClick={async()=>{
-								       let select = document.getElementById('param')
+<select onChange={async()=>{let select = document.getElementById('param')
 									   console.log(select[select.selectedIndex].text)
 									   setSelectedParam(select[select.selectedIndex].text)
 									   let api = await fetch(`http://localhost:8000/load_data_by_param/${select[select.selectedIndex].text}`)
 									   api = await api.json()
 									   console.log(api.data)
-									   setResults(api.data)
-							}} type="submit">Student Research Query</FormButton>
+									   setUpdated(updated+1)
+									   setResults(api.data)}} name="param" id="param">
+  <option value="firstname">firstname</option>
+  <option value="email">email</option>
+</select></div>
+							<FormButton style={{'opacity':0}} type="submit"></FormButton>
                             <div style={{'width':'100%'}}>
-								<NameList opacity={opacity} query={query} nameoptions={results} param={selectedParam} />
-									</div>
+{loadNames()}								</div>
 
 						</FormWrapper>
 						{error && (
@@ -113,6 +126,7 @@ const FormStudentQuery = (props) => {
 								{success}
 							</FormMessage>
 						)}
+						<BarChartStudentEnrollment graph_data={student_graph_data} />
 
 					</FormColumn>
 

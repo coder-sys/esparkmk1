@@ -7,6 +7,7 @@ import {
 	ButtonContainer,
 	ReviewSlider,
 	ImageWrapper,
+	CarouselImage,
 	CardButton,
 } from './CarouselStyles';
 
@@ -37,7 +38,7 @@ const CarouselStoredData = (props) => {
 				</ButtonContainer>
 			</Row>
 				
-			<ReviewSlider {...sliderSettings} ref={setSliderRef}>
+			<ReviewSlider {...sliderSettings(props.stored_data_array.length/2)} >
 				
 				{
                     props.stored_data_array.map((data,index)=>{
@@ -51,12 +52,15 @@ const CarouselStoredData = (props) => {
                             }
                         })
                         console.log(linkarray__.join(""))
+						if(data['type']=='google'){
 		return(
 		<ImageWrapper key={index}>
 			<TextWrapper width='225' size="1.1rem" margin="0.4rem 0 0" weight="bold">
 				<a href={linkarray__.join('')}> <div style={{fontSize:'15px',color:'black'}}><p>{data['name']}</p></div> </a>
 			</TextWrapper>
-			
+			<TextWrapper>
+				{data['description']}
+			</TextWrapper>
 			<TextWrapper>
 			<CardButton onClick={async()=>{ 
                         let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${props.name}`)
@@ -69,7 +73,40 @@ const CarouselStoredData = (props) => {
 
 			</TextWrapper>
 		</ImageWrapper>
-		)})}
+		)
+		}
+		else if(data['type']=='youtube'){
+			let thumbnailjoin_ = []
+			data['thumbnail'].split('').map((data)=>{
+				if(data == '`'){
+					data = '/'
+				}
+				thumbnailjoin_.push(data)
+			})
+			return(
+				<ImageWrapper key={index}>
+
+			<TextWrapper width='225' size="1.1rem" margin="0.4rem 0 0" weight="bold">
+				<a href={linkarray__.join('')}> <div style={{fontSize:'15px',color:'black'}}><p>{data['name']}</p></div> </a>
+			</TextWrapper>
+			<CarouselImage src={thumbnailjoin_.join('')} />
+
+			<TextWrapper>
+			<CardButton onClick={async()=>{ 
+                        let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${props.name}`)
+                        emailandlastname = await emailandlastname.json()
+                        let api= await fetch(`http://localhost:8000/delete_saved_data/${props.name+emailandlastname['lastname']+emailandlastname['email']}/${props.foldername}/${data['name']}`)
+                        api = await api.json()
+                        props.setue(props.update_effect+1)
+            }}
+                         >Delete</CardButton><br></br><br></br>
+
+			</TextWrapper>
+					</ImageWrapper>
+
+			)
+		}
+	})}
 			</ReviewSlider>
 		</Section>
 	);

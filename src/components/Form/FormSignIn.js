@@ -48,7 +48,7 @@ const FormSignIn = () => {
 			 
 		  
 			}     else{  
-				 alert(__api__['data'])
+				 alert('You have an account associated with this email')
 		  }
 	  }
 	   useEffect(()=>{

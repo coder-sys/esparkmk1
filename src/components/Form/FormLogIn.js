@@ -78,7 +78,6 @@ const FormLogIn = (props) => {
                     setAccess("Granted")
 					console.log(ut.data)
                     window.location.replace('http://localhost:3000/homepage/'+firstname_google+'/'+ut.data)
-                //    props.navigation.navigate('HomePage',{name:firstname_google,user_type:ut.data})
                   }
                   else{
                     alert('Username not found')
@@ -114,6 +113,7 @@ const FormLogIn = (props) => {
                                             let ut = await fetch(`http://localhost:8000/get_user_type/${name}`)
                                             ut = await ut.json()
                                             console.log(ut.data)
+											
                                             if(api['data'] == "username not found"){
                                               console.log('username not found')
                                                 alert("username not found")
@@ -148,7 +148,6 @@ const FormLogIn = (props) => {
 								animate="animate"
 								error
 							>
-								{error}
 							</FormMessage>
 						)}
 						{success && (
@@ -157,7 +156,6 @@ const FormLogIn = (props) => {
 								initial="hidden"
 								animate="animate"
 							>
-								{success}
 							</FormMessage>
 						)}
 					</FormColumn>

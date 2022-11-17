@@ -6,7 +6,7 @@ import translateLink from '../../functions/translatelink';
 import Loader from '../Loader/Loader';
 import save_google_data from '../../functions/save_google_data';
 import save_youtube_data from '../../functions/save_youtube_data';
-import ClockLoader from 'react-spinners/ClockLoader'
+import FormFolderContentConceptualSearch from '../Form/FormFolderContentConceptualSearch';
 
 const HeroFolderContent = (props) => {
     const [name,setName] = useState(props.name)
@@ -31,10 +31,9 @@ const HeroFolderContent = (props) => {
     const [stored_data,setStoredData] = useState([])
     const [stored_data_yt,setStoredDataYT] = useState([])
     const [consent,setConsent] = useState(true)
-
-
-   
-
+    const [conceptsearch,setConceptSearch] = useState('')
+    const [csResultData,setCsResultData] = useState([])
+     
       
     const UE = async()=>{
     try{
@@ -77,27 +76,45 @@ setLastName(emailandlastname['lastname'])
                     })
                 }
                 <FormFolderContentGoogle setConsent={setConsent} setStoredData={setStoredData} setGoogleSearch={setGoogleSearch} update_effect={update_effect} name={name} setName={setName} foldername={foldername} setUpdated={setUpdated} setue={setue} googlesearch={googlesearch} retrievegoogledata1={retrievegoogledata1} setRetrieveGoogleData1={setRetrieveGoogleData1} retrievegoogledata2={retrievegoogledata2} setRetrieveGoogleData2={setRetrieveGoogleData2} description={description} setDescription={setDescription} youtubeAPITitles={youtubeAPITitles} setyoutubeAPITitles={setyoutubeAPITitles} youtubeAPILinks={youtubeAPILinks} setyoutubeAPILinks={setyoutubeAPILinks} translateLink={translateLink} />
-                {[1].map((data,index)=>{
+                {
+                    
+                [1].map((data,index)=>{
+                    if(googlesearch!=''){
                     console.log(name)
                     var linkjoin_ = []
                     var djoin_ = [] 
-                    
                     return(        
 
-                         <props.CarouselGoogle setConsent={setConsent}  save_data={save_google_data} foldername={foldername} email={email} lastname={lastname} name={name} djoin_={djoin_} retrievegoogledata2={retrievegoogledata2} retrievegoogledata1={retrievegoogledata1} description={description} update_effect={update_effect} setue={setue} linkjoin_={linkjoin_} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin}  />
-                    )
+                         <props.CarouselGoogle googlesearchtitle={`Google Search results for ${googlesearch}`} setConsent={setConsent}  save_data={save_google_data} foldername={foldername} email={email} lastname={lastname} name={name} djoin_={djoin_} retrievegoogledata2={retrievegoogledata2} retrievegoogledata1={retrievegoogledata1} description={description} update_effect={update_effect} setue={setue} linkjoin_={linkjoin_} stored_data={stored_data} djoin={djoin} linkjoin={linkjoin}  />
+                    )}
 
 }
 )
 }
                 <FormFolderContentYouTube youtubesearch={youtubesearch} setYoutubeSearch={setYoutubeSearch} setUpdated={setUpdated} updated={updated} setue={setue} update_effect={update_effect} setyoutubeAPITitles={setyoutubeAPITitles} setyoutubeAPILinks={setyoutubeAPILinks} setThumbnail={setThumbnail} translateLink={translateLink} setStoredDataYT={setStoredDataYT} linkarray={linkarray} />
                 {[1].map((data,index)=>{
+                    if(youtubesearch!=''){
                     return(
-                        <props.CarouselYouTube thumbnail={thumbnail} save_data={save_youtube_data} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} stored_data_yt={stored_data_yt} setue={setue} update_effect={update_effect} name={name} foldername={foldername} />
-                    )
+                        <props.CarouselYouTube youtubesearchtitle={`YouTube Search results for ${youtubesearch}`}  thumbnail={thumbnail} save_data={save_youtube_data} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} stored_data_yt={stored_data_yt} setue={setue} update_effect={update_effect} name={name} foldername={foldername} />
+                    )}
                 })}
+                <FormFolderContentConceptualSearch setCsResultData={setCsResultData}  foldername={foldername} conceptsearch={conceptsearch} setConceptSearch={setConceptSearch}  setConsent={setConsent} updated={updated} setue={setue} update_effect={update_effect} setUpdated={setUpdated} name={name} />
+                {
+                    csResultData.map((data,index)=>{
+                        let linkjoin_ = []
+                        let djoin_ = []
+                        return(
+                    <props.CarouselGoogle setConsent={setConsent}  googlesearchtitle={data['subtopic']} save_data={save_google_data} foldername={foldername} email={email} lastname={lastname} name={name} djoin_={djoin_} retrievegoogledata2={data['link']} retrievegoogledata1={data['titles']} description={data['descriptions']} update_effect={update_effect} setue={setue} linkjoin_={linkjoin_} stored_data={data['stored_data']} djoin={djoin} linkjoin={linkjoin}  />
+      
+                        )
+                    })
+				}
             </>
         );
     };
     
     export default HeroFolderContent;
+  // return(
+    //<props.CarouselGoogle setConsent={setConsent}  googlesearchtitle={data} save_data={save_google_data} foldername={foldername} email={email} lastname={lastname} name={name} djoin_={djoin_} retrievegoogledata2={csLinks[index]} retrievegoogledata1={csTitles[index]} description={csDescriptions[index]} update_effect={update_effect} setue={setue} linkjoin_={linkjoin_} stored_data={csStoredData[index]} djoin={djoin} linkjoin={linkjoin}  />
+            
+   // )

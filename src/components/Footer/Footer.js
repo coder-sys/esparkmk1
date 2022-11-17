@@ -53,7 +53,7 @@ function Footer() {
 						</FooterLinkItems>
 					))}
 				</FooterGrid>
-				<FooterRights>ESPARK © 2022</FooterRights>
+				<FooterRights>AFD Enterprises NGO Division © 2022</FooterRights>
 			</FooterWrapper>
 		</Section>
 	);

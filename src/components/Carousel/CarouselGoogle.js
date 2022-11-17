@@ -31,7 +31,7 @@ const CarouselGoogle = (props) => {
 			
 			<Row justify="space-between" margin="1rem" wrap="wrap">
 				<Heading width="auto" inverse>
-					Google search
+					{props.googlesearchtitle}
 				</Heading>
 				<ButtonContainer>
 					<IconContext.Provider value={{ size: '3rem', color: '#1d609c' }}>
@@ -47,7 +47,7 @@ const CarouselGoogle = (props) => {
 				</ButtonContainer>
 			</Row>
 				
-			<ReviewSlider {...sliderSettings} ref={setSliderRef}>
+			<ReviewSlider {...sliderSettings(3)} ref={setSliderRef}>
 				
 				{
 				props.retrievegoogledata2.map((data, index) => {
@@ -63,7 +63,7 @@ const CarouselGoogle = (props) => {
 			</TextWrapper>
 			<TextWrapper>
 			<CardButton onClick={
-				    ()=>props.save_data(props.setue,data,props.update_effect,props.linkjoin_,props.retrievegoogledata1,index,props.djoin_,props.stored_data,props.name,props.lastname,props.email,props.foldername)
+				    ()=>props.save_data(props.setue,data,props.update_effect,props.linkjoin_,props.retrievegoogledata1,index,props.djoin_,props.stored_data,props.name,props.lastname,props.email,props.foldername,props.description)
 
            
            } disabled={props.stored_data[index]} >Save</CardButton><br></br><br></br>
