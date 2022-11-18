@@ -15,7 +15,7 @@ return (
       theme={VictoryTheme.material}
     >
       <VictoryBar
-        barRatio={10}
+        barRatio={1}
         cornerRadius={10} // Having this be a non-zero number looks good when it isn't transitioning, but looks like garbage when it is....
         alignment="middle"
         data={[
