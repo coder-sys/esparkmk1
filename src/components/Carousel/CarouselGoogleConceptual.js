@@ -25,7 +25,7 @@ const CarouselGoogleConceptual = (props) => {
 			
 			<Row justify="space-between" margin="1rem" wrap="wrap">
 				<Heading width="auto" inverse>
-					{props.subtopic}
+					<div style={{'fontSize':'1px'}}>{props.subtopic}</div>
 				</Heading>
 				<ButtonContainer>
 					<IconContext.Provider value={{ size: '3rem', color: '#1d609c' }}>

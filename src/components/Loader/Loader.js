@@ -9,6 +9,6 @@ export default function Loader(props) {
 );
 }
 else{
-    return
+    return <div></div>
 }
 }

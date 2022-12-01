@@ -21,7 +21,7 @@ const CarouselStoredData = (props) => {
 		<Section margin="auto" maxWidth="1280px" padding="50px 70px" inverse>
 			<Row justify="space-between" margin="1rem" wrap="wrap">
 				<Heading width="auto" inverse>
-					Stored Data
+					{props.SDoM}
 				</Heading>
 				<a href={`http://localhost:3000/homepage/${props.name}/${props.ut}`}><div><b><i>BACK</i></b></div></a>
 				<ButtonContainer>
@@ -31,7 +31,7 @@ const CarouselStoredData = (props) => {
 						<FaArrowCircleRight />
 						</div>
 					<TextWrapper size="1.1rem" margin="0.4rem 0 0" weight="bold">
-					Use Arrows to navigate
+				<div style={{'opacity':props.sdomo}}>	Use Arrows to navigate</div>
 					</TextWrapper>
 
 					</IconContext.Provider>

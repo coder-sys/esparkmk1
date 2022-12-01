@@ -53,7 +53,7 @@ const FormLogIn = (props) => {
 	};
 
 	const formData = [
-		{ label: 'Name', value: name, onChange: (e) => setName(e.target.value), type: 'text' },
+		{ label: 'first name', value: name, onChange: (e) => setName(e.target.value), type: 'text' },
 		{
 			label: 'Password',
 			value: password,

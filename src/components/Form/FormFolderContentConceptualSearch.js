@@ -11,6 +11,7 @@ import {
 	FormButton,
 	
 } from './FormStyles';
+import Loader from '../Loader/Loader';
 
 
 import { Container } from '../../globalStyles';
@@ -48,7 +49,6 @@ const FormFolderContentConceptualSearch = (props) => {
 		
 		
 	];
-	props.setConsent(false)
 	return (
 		<FormSection>
 			<Container>
@@ -69,6 +69,8 @@ const FormFolderContentConceptualSearch = (props) => {
 							))}
 
 							<FormButton onClick={async()=>{
+									props.setConsent(false)
+
                                     try{
                                         props.setUpdated(props.updated+1)
 			                            props.setue(props.update_effect+1)
@@ -77,6 +79,10 @@ const FormFolderContentConceptualSearch = (props) => {
                                         let api = await fetch(`http://localhost:8000/get_results_on_conceptual_search/${props.conceptsearch}/${props.name+emailandlastname['lastname']+emailandlastname['email']}/${props.foldername}`)
                                         api = await api.json()
                                         props.setCsResultData(api['data'])
+										api['data'].map((data)=>{
+											props.setConsent(true)
+
+										})
                                     }catch(err){
                                         console.log(err)
 										alert('The educational search you made was too specific,use the google search feature for your search')
@@ -88,16 +94,8 @@ const FormFolderContentConceptualSearch = (props) => {
                                             }} type="submit">Search Topic</FormButton>
                            
 						</FormWrapper>
-						{error && (
-							<FormMessage
-								variants={messageVariants}
-								initial="hidden"
-								animate="animate"
-								error
-							>
-							{'------'}							
-						</FormMessage>
-						)}
+						<div>		<Loader disable={props.consent}/>
+</div>
 						{success && (
 							<FormMessage
 								variants={messageVariants}

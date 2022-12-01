@@ -3,7 +3,6 @@ import { HeroVideo, HeroSection, HeroText, ButtonWrapper, HeroButton } from './H
 import FormFolderContentGoogle from '../Form/FormFolderContentGoogle';
 import FormFolderContentYouTube from '../Form/FormFolderContentYouTube';
 import translateLink from '../../functions/translatelink';
-import Loader from '../Loader/Loader';
 import save_google_data from '../../functions/save_google_data';
 import save_youtube_data from '../../functions/save_youtube_data';
 import FormFolderContentConceptualSearch from '../Form/FormFolderContentConceptualSearch';
@@ -31,9 +30,11 @@ const HeroFolderContent = (props) => {
     const [stored_data,setStoredData] = useState([])
     const [stored_data_yt,setStoredDataYT] = useState([])
     const [consent,setConsent] = useState(true)
+    const [consent1,setConsent1] = useState(true)
+    const [SDoM,setSDom] = useState('Scroll down to start your internet research')
     const [conceptsearch,setConceptSearch] = useState('')
     const [csResultData,setCsResultData] = useState([])
-     
+    const [sdomo,Ssdomo] = useState(0)
       
     const UE = async()=>{
     try{
@@ -45,7 +46,16 @@ setLastName(emailandlastname['lastname'])
     lapi = await lapi.json()
     console.log(lapi)
     setLinkarray(lapi.data)
-    console.log(linkarray)
+    console.log(    lapi.data.length        )
+    if(lapi.data.length>0){
+        setSDom('Stored Data')
+        Ssdomo(1)
+    }
+    else{
+        setSDom(('Scroll down to start your internet research'))
+        Ssdomo(0)
+
+    }
 }
     catch(err){
         console.log(err)
@@ -71,7 +81,7 @@ setLastName(emailandlastname['lastname'])
                     [1].map((data,index)=>{
                         
                         return(
-                            <props.CarouselStoredData setue={setue} update_effect={update_effect} stored_data_array={stored_data_array} name={name} ut={ut} foldername={foldername} />
+                            <props.CarouselStoredData sdomo={sdomo} SDoM={SDoM} setue={setue} update_effect={update_effect} stored_data_array={stored_data_array} name={name} ut={ut} foldername={foldername} />
                         )
                     })
                 }
@@ -98,7 +108,7 @@ setLastName(emailandlastname['lastname'])
                         <props.CarouselYouTube youtubesearchtitle={`YouTube Search results for ${youtubesearch}`}  thumbnail={thumbnail} save_data={save_youtube_data} youtubeAPILinks={youtubeAPILinks} youtubeAPITitles={youtubeAPITitles} stored_data_yt={stored_data_yt} setue={setue} update_effect={update_effect} name={name} foldername={foldername} />
                     )}
                 })}
-                <FormFolderContentConceptualSearch setCsResultData={setCsResultData}  foldername={foldername} conceptsearch={conceptsearch} setConceptSearch={setConceptSearch}  setConsent={setConsent} updated={updated} setue={setue} update_effect={update_effect} setUpdated={setUpdated} name={name} />
+                <FormFolderContentConceptualSearch setCsResultData={setCsResultData}  foldername={foldername} conceptsearch={conceptsearch} setConceptSearch={setConceptSearch} consent={consent1} setConsent={setConsent1} updated={updated} setue={setue} update_effect={update_effect} setUpdated={setUpdated} name={name} />
                 {
                     csResultData.map((data,index)=>{
                         let linkjoin_ = []

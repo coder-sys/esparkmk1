@@ -6,7 +6,6 @@ import FormHomepage from '../Form/FormHomepage'
 import { Content } from '../Content/Content';
 import FormStudentQuery from '../Form/FormStudentQuery';
 import CarouselStudentData from '../Carousel/CarouselStudentData';
-import range_generator from '../../functions/range_generator';
 import { AdminPageContent } from '../Content/AdminPageContent';
  
 const HeroHomePage = (props) => {
@@ -26,6 +25,7 @@ const [student_data,setStudentData] = useState([])
 const [teacher_data,setTeacherData] = useState([])
 const [student_graph_data,setStudentGraphData] = useState([])
 const [teacher_graph_data,setTeacherGraphData] = useState([])
+const [date_err,setDR] = useState(0)
   const Delete = async(foldername)=>{
     let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
     emailandlastname = await emailandlastname.json()
@@ -43,6 +43,10 @@ const [teacher_graph_data,setTeacherGraphData] = useState([])
   }
   
 const UE = async()=>{
+  let date_error = await fetch(`http://localhost:8000/date_subtraction_for_paid_version`)
+  date_error = await date_error.json()
+  console.log('date err',date_error['data'])
+  setDR(date_error['data'])
   const fetchData_student = async()=>{
 let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
 emailandlastname = await emailandlastname.json()
@@ -101,6 +105,7 @@ if(user_type == 'admin'||user_type=='adminteacherlist'){
 }
 useEffect(()=>{UE()},[update])
 if(user_type=='student'){
+  if(date_err<30){
 	return (
 		<>
 			<HeroVideo src="./assets/hero.mp4" loop autoPlay muted />
@@ -129,8 +134,13 @@ if(user_type=='student'){
 )})
     }
 		</>
-	)}
+	)}else{
+    window.location.replace('http://localhost:3000/errorpage')
+  }
+}
   if(user_type=='teacher'){
+    if(date_err<30){
+
     return(
       <>
 
@@ -146,10 +156,13 @@ if(user_type=='student'){
       }
       </div>
       </>
-    )
+    )}else{
+      window.location.replace('http://localhost:3000/errorpage')
+    }
   }
 
   if(user_type=='admin'){
+
     const heroThree = {
       reverse:true,
       inverse:true,
@@ -179,14 +192,20 @@ if(user_type=='student'){
       vf:()=>window.open('http://localhost:3000/homepage/'+name+'/teacher')
     }
     console.log(teacher_data)
+    if(date_err<30){
+
    return( <>
 
    <AdminPageContent {...heroTwo} />
    <AdminPageContent {...heroThree} />
 
     </>)
+  }else{
+    window.location.replace('http://localhost:3000/payments')
   }
+}
   if(user_type=='adminteacherlist'){
+    if(date_err<30){
     return(
       <div >
       {
@@ -198,8 +217,13 @@ if(user_type=='student'){
         })
       }
       </div>
-    )
+    )}
+    else{
+      window.location.replace('http://localhost:3000/errorpage')
+
+    }
   }
+  
 };
 
 export default HeroHomePage;

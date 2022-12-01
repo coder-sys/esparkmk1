@@ -12,22 +12,29 @@ console.log(uname)
 const [name,setName] = useState(uname)
 const [update,setUpdated] = useReducer(x=>x+1,0)
 const [_foldername_,setFolderName] = useState(foldername)
-
+const [date_err,setDR] = useState(0)
 
 
   
   
 const UE = async()=>{
-
+	let date_error = await fetch(`http://localhost:8000/date_subtraction_for_paid_version`)
+	date_error = await date_error.json()
+	console.log('date err',date_error['data'])
+	setDR(date_error['data'])
 }
 useEffect(()=>{UE()},[update])
+if(date_err<30){
 	return (
 		<>
 
             <HeroFolderContent CarouselStoredData={CarouselStoredData} CarouselYouTube={CarouselYouTube} CarouselGoogle={CarouselGoogle} name={uname} ut={ut} foldername={_foldername_}/>
 
 		</>
-	);
+	);}
+	else{
+		window.location.replace(`http://localhost:3000/errorpage`)
+	}
 };
 
 export default FolderContent;

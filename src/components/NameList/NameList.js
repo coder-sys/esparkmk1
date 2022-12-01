@@ -51,7 +51,7 @@ function NameList(props){
 										if(props.param == 'firstname'){
 										return(
 											<FormRow key={index}>
-											<FormMessage><p style={{'color':'black'}}><CardButton onClick={async()=>{window.location.replace(`http://localhost:3000/homepage/${data}/student`)}}><b>{data}</b></CardButton></p></FormMessage>
+											<FormMessage><p style={{'color':'black'}}><CardButton onClick={async()=>{window.open(`http://localhost:3000/homepage/${data}/student`)}}><b>{data}</b></CardButton></p></FormMessage>
 					</FormRow>
 										)
 									}
