@@ -77,7 +77,7 @@ const FormLogIn = (props) => {
                   if(api['data']!='username not found'){
                     setAccess("Granted")
 					console.log(ut.data)
-                    window.location.replace('http://localhost:3000/homepage/'+firstname_google+'/'+ut.data)
+                    window.location.replace('https://e-spark-prod.ecsbeats.repl.co/homepage/'+firstname_google+'/'+ut.data)
                   }
                   else{
                     alert('Username not found')
@@ -124,7 +124,7 @@ const FormLogIn = (props) => {
                                               let ut = await fetch(`http://35.193.47.255/get_user_type/${name}`)
                                                         ut = await ut.json()
                                                         console.log(ut.data)
-														window.location.replace('http://localhost:3000/homepage/'+name+"/"+ut.data)
+														window.location.replace('https://e-spark-prod.ecsbeats.repl.co/homepage/'+name+"/"+ut.data)
 
                                               //          props.navigation.navigate('HomePage',{name:fname,user_type:ut.data})
                                             }

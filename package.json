@@ -1,5 +1,5 @@
 {
-	"homepage": "http://coder-sys.github.io/-ESPARK-",
+	"homepage": "http://coder-sys.github.io/ESPARK",
 	"name": "ESPARK",
 	"version": "0.1.0",
 	"private": true,
@@ -24,18 +24,19 @@
 		"react-slick": "^0.28.1",
 		"react-spinners": "^0.13.6",
 		"styled-components": "^5.1.1",
+		"vercel": "^28.8.0",
 		"victory": "^36.6.8",
 		"web-vitals": "^1.0.1"
 	},
 	"scripts": {
-		"predeploy":"npm run build",
-		"deploy":"gh-pages -d build",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
-	"eslintConfig": {
+	"es`lintConfig": {
 		"extends": [
 			"react-app",
 			"react-app/jest"
