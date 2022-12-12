@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/-ESPARK-/static/js/main.bb5f0a00.js",
+    "index.html": "/-ESPARK-/index.html",
+    "main.bb5f0a00.js.map": "/-ESPARK-/static/js/main.bb5f0a00.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bb5f0a00.js"
+  ]
+}
