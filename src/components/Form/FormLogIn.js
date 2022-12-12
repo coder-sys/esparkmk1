@@ -108,6 +108,7 @@ const FormLogIn = (props) => {
 
 							<FormButton onClick={async()=>{
 								        try{
+											
                                             let api = await fetch(`http://35.193.47.255/login/${name}`)
                                             api = await api.json()
                                             let ut = await fetch(`http://35.193.47.255/get_user_type/${name}`)
@@ -134,13 +135,15 @@ const FormLogIn = (props) => {
                                             catch(err){alert('you left the username field or the password field empty')}
 
 							}} type="submit">Login In</FormButton>
-                            <div style={{'width':'100%',marginLeft:'35%'}}>	<GoogleLogin 
+						</FormWrapper>
+						<FormMessage>
+						<GoogleLogin 
             clientId={'615921346526-8gs4b74dja97fje48tv2o459a6g7e9ns.apps.googleusercontent.com'}
             onSuccess={(res)=>loginwithgoogle(res.profileObj['name'])}
             onFailure={(res)=>alert('had trouble logging in,please try again')}
            
-      /></div>
-						</FormWrapper>
+      />
+						</FormMessage>
 						{error && (
 							<FormMessage
 								variants={messageVariants}

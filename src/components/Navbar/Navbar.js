@@ -47,7 +47,7 @@ const Navbar = (props) => {
 				<NavbarContainer>
 					
 					<NavLogo to="/">
-						<NavIcon  />
+						<NavIcon  src={'../../images/afdenterpriseslogoregular.PNG'}/>
 						<div style={{'color':'silver'}}><b>ESPARK</b></div>
 					</NavLogo>
 					<MobileIcon onClick={handleClick}>

@@ -94,7 +94,7 @@ const FormFolderContentConceptualSearch = (props) => {
                                             }} type="submit">Search Topic</FormButton>
                            
 						</FormWrapper>
-						<div>		<Loader disable={props.consent}/>
+						<div>		<FormMessage><Loader disable={props.consent}/></FormMessage>
 </div>
 						{success && (
 							<FormMessage
