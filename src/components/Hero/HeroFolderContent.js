@@ -38,11 +38,11 @@ const HeroFolderContent = (props) => {
       
     const UE = async()=>{
     try{
-    let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
+    let emailandlastname = await fetch(`http://35.193.47.255/get_last_name_and_email/${name}`)
 emailandlastname = await emailandlastname.json()
 setEmail(emailandlastname['email'])
 setLastName(emailandlastname['lastname'])
-    let lapi = await fetch('http://localhost:8000/get_stored_links/'+name+emailandlastname['lastname']+emailandlastname['email']+'/'+foldername)
+    let lapi = await fetch('http://35.193.47.255/get_stored_links/'+name+emailandlastname['lastname']+emailandlastname['email']+'/'+foldername)
     lapi = await lapi.json()
     console.log(lapi)
     setLinkarray(lapi.data)
@@ -60,12 +60,12 @@ setLastName(emailandlastname['lastname'])
     catch(err){
         console.log(err)
     }
-    let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
+    let emailandlastname = await fetch(`http://35.193.47.255/get_last_name_and_email/${name}`)
     emailandlastname = await emailandlastname.json()
     setEmail(emailandlastname['email'])
     setLastName(emailandlastname['lastname'])
 
-                      let api = await fetch(`http://localhost:8000/load_data/${name+emailandlastname['lastname']+emailandlastname['email']}/${foldername}`)
+                      let api = await fetch(`http://35.193.47.255/load_data/${name+emailandlastname['lastname']+emailandlastname['email']}/${foldername}`)
                       api = await api.json()
                       console.log(api.data)
                        setStored_dataArray(api.data)

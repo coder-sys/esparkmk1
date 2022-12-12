@@ -27,36 +27,36 @@ const [student_graph_data,setStudentGraphData] = useState([])
 const [teacher_graph_data,setTeacherGraphData] = useState([])
 const [date_err,setDR] = useState(0)
   const Delete = async(foldername)=>{
-    let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
+    let emailandlastname = await fetch(`http://35.193.47.255/get_last_name_and_email/${name}`)
     emailandlastname = await emailandlastname.json()
-    let api = await fetch(`http://localhost:8000/delete_folder/${name+emailandlastname['lastname']+emailandlastname['email']}/${foldername}`)
+    let api = await fetch(`http://35.193.47.255/delete_folder/${name+emailandlastname['lastname']+emailandlastname['email']}/${foldername}`)
     api = await api.json()
     console.log(api.status)
-    let api1 = await fetch(`http://localhost:8000/get_folders/${name+emailandlastname['lastname']+emailandlastname['email']}`)
+    let api1 = await fetch(`http://35.193.47.255/get_folders/${name+emailandlastname['lastname']+emailandlastname['email']}`)
   api1 = await api1.json()
   console.log(api.data)
   setFolderData(api1.data)
   console.log(true,name+emailandlastname['lastname']+emailandlastname['email'])
   setUpdated()
-  let api2 = await fetch(`http://localhost:8000/delete_no_of_folders/${name}`)
+  let api2 = await fetch(`http://35.193.47.255/delete_no_of_folders/${name}`)
   api2 = await api2.json()
   }
   
 const UE = async()=>{
-  let date_error = await fetch(`http://localhost:8000/date_subtraction_for_paid_version`)
+  let date_error = await fetch(`http://35.193.47.255/date_subtraction_for_paid_version`)
   date_error = await date_error.json()
   console.log('date err',date_error['data'])
   setDR(date_error['data'])
   const fetchData_student = async()=>{
-let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
+let emailandlastname = await fetch(`http://35.193.47.255/get_last_name_and_email/${name}`)
 emailandlastname = await emailandlastname.json()
 try{
-let api1 = await fetch(`http://localhost:8000/get_folders/${name+emailandlastname['lastname']+emailandlastname['email']}`)
+let api1 = await fetch(`http://35.193.47.255/get_folders/${name+emailandlastname['lastname']+emailandlastname['email']}`)
 api1 = await api1.json()
 console.log(api1.data)
-let statsapi = await fetch(`http://localhost:8000/get_no_of_stored_content/${name+emailandlastname['lastname']+emailandlastname['email']}/${api1.data.join('-')}`)
+let statsapi = await fetch(`http://35.193.47.255/get_no_of_stored_content/${name+emailandlastname['lastname']+emailandlastname['email']}/${api1.data.join('-')}`)
 console.log(statsapi.status)
-console.log(`http://localhost:8000/get_no_of_stored_content/${name+emailandlastname['lastname']+emailandlastname['email']}/${api1.data.join('-')}`)
+console.log(`http://35.193.47.255/get_no_of_stored_content/${name+emailandlastname['lastname']+emailandlastname['email']}/${api1.data.join('-')}`)
 statsapi = await statsapi.json()
 
 try{
@@ -73,9 +73,9 @@ setFolderData(api1.data)
 }catch(err){console.log('you have no folders')}
 }
 const fetchData_teacher = async () =>{
-  let emailandlastname = await fetch(`http://localhost:8000/get_last_name_and_email/${name}`)
+  let emailandlastname = await fetch(`http://35.193.47.255/get_last_name_and_email/${name}`)
 emailandlastname = await emailandlastname.json()
-let student_data_1 = await fetch(`http://localhost:8000/view_student_data_alph_order/student`)
+let student_data_1 = await fetch(`http://35.193.47.255/view_student_data_alph_order/student`)
 student_data_1 = await student_data_1.json()
 setStudentData(student_data_1['data'])
 setStudentGraphData(student_data_1['graph_data'])
@@ -83,10 +83,10 @@ console.log(student_data_1['data'])
 
 }
 const fetchData_admin = async () =>{
-  let student_data_1 = await fetch(`http://localhost:8000/view_student_data_alph_order/student`)
+  let student_data_1 = await fetch(`http://35.193.47.255/view_student_data_alph_order/student`)
 student_data_1 = await student_data_1.json()
 setStudentGraphData(student_data_1['graph_data'])
-let student_data_2 = await fetch(`http://localhost:8000/view_student_data_alph_order/teacher`)
+let student_data_2 = await fetch(`http://35.193.47.255/view_student_data_alph_order/teacher`)
 student_data_2 = await student_data_2.json()
 console.log(student_data_2['data'])
 setTeacherData(student_data_2['data'])

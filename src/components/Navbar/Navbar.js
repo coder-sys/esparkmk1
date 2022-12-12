@@ -48,7 +48,7 @@ const Navbar = (props) => {
 					
 					<NavLogo to="/">
 						<NavIcon  />
-						<div style={{'color':'darkBlue'}}><b>ESPARK</b></div>
+						<div style={{'color':'silver'}}><b>ESPARK</b></div>
 					</NavLogo>
 					<MobileIcon onClick={handleClick}>
 						{show ? <FaTimes /> : <CgMenuRight />}
@@ -57,7 +57,7 @@ const Navbar = (props) => {
 						{data.map((el, index) => (
 							<NavItem key={index}>
 								<NavLinks onClick={() => closeMobileMenu(el.to, el.id)}>
-								<div style={{'color':'darkBlue'}}><b>	{el.text}</b></div>
+								<div style={{'color':'silver'}}><b>	{el.text}</b></div>
 								</NavLinks>
 							</NavItem>
 						))}
