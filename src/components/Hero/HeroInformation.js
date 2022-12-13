@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button, Container, MainHeading } from '../../globalStyles';
 import { HeroVideo, HeroSection, HeroText, ButtonWrapper, HeroButton } from './HeroStyles';
 import { FormMessage,FormColumn } from '../Form/FormStyles';
-import { FormSection } from '../Form/FormStyles';
-
 const HeroInformation = () => {
 	return (
-		<FormSection>
 		<HeroSection>
+			<HeroVideo src="./assets/hero.mp4" loop autoPlay muted />
 			<Container>
 				<MainHeading><i>ESPARK</i></MainHeading>
 				<HeroText>
@@ -19,7 +17,7 @@ const HeroInformation = () => {
                 helps students in creating entrepreneurs because it is built around the user's vision. ESPARK has a vision to help students discover their passion. <br></br>				</HeroText>
 				</Container>
 
-		</HeroSection></FormSection>
+		</HeroSection>
 	);
 };
 
